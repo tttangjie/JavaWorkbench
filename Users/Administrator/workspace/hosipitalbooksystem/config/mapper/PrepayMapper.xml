@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace的作用就是sql语句隔离，后面还有其他用途。 -->
+<mapper namespace="com.mybaties.mapper.PrepayMapper">
+<select id="findPrepayByPno" parameterType="String" resultType="com.po.Prepay">
+       select * from prepay where pno=#{pno}
+</select>
+
+<insert id="insertPrepay" parameterType="com.po.Prepay">
+    insert into prepay(pno,premoney) values(#{pno},#{premoney})
+</insert>
+<!-- 删除 -->
+<delete id="deletePrepayByPno" parameterType="String">
+        delete from prepay where pno = #{pno}
+</delete>
+<!-- 修改-->
+<update id="updatePrepayById" parameterType="com.po.Prepay">
+    update prepay set premoney=#{premoney} where pno=#{pno} 
+</update>
+</mapper>

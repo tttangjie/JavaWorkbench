@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div style="padding:10px 10px 10px 10px">
+	<form id="ScoreAddForm" class="ScoreAddForm" method="post">
+	    <table id="ScoreTable" cellpadding="5">
+	        <tr>
+	            <td>学校名:</td>
+	            <td>
+	                <select   name="school_name" id="school_name">
+                        
+                    </select>
+	            </td>
+
+	        </tr>
+	        <tr>
+	            <td>课程名称:</td>
+	            <td>
+	            	<select   name="course_name" id="course_name">
+                        
+                    </select>
+	            </td>
+	        </tr>
+	        <tr>
+	            <td>学号:</td>
+	            <td>
+					<select   name="sno" id="sno">
+                        
+                    </select>
+	            </td>
+	        </tr>
+	        <tr>
+	            <td>成绩:</td>
+	            <td>
+	            <input class="easyui-textbox"  type="text" id="score" name="score" data-options="required:true"/>
+	            </td>
+	        </tr>
+	        
+	    </table>
+	</form>
+	<div style="padding:5px">
+	    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitScoreForm()">提交</a>
+	    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearScoreForm()">重置</a>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	   $.ajax({
+		    	url:'Information/selectSchool.do',
+				type:'post',
+				dataType:'json',
+				cache:false,
+		    	success:function(data){
+		    		document.getElementById("school_name").innerHTML="";
+		    		for(var one in data)
+					{
+		    			var name=data[one].school_name;
+		    			var id=data[one].id;
+		    			document.getElementById("school_name").options.add(new Option(name,id));
+					}
+		    	}
+		    });
+
+
+	   
+	    $.ajax({
+		    	url:'Information/selectCourse.do',
+				type:'post',
+				dataType:'json',
+				cache:false,
+		    	success:function(data){
+		    		document.getElementById("course_name").innerHTML="";
+		    		for( var one in data)
+					{
+		    			var name=data[one].course_name;
+		    			var id=data[one].id;
+		    			document.getElementById("course_name").options.add(new Option(name,id));
+					}
+		    	}
+		    });
+
+
+	   
+		    $.ajax({
+		    	url:'Information/selectStudent.do',
+				type:'post',
+				dataType:'json',
+				cache:false,
+		    	success:function(data){
+		    		document.getElementById("sno").innerHTML="";
+		    		for( var one in data)
+					{
+		    			var sno=data[one].sno;
+		    			var id=data[one].id;
+		    			document.getElementById("sno").options.add(new Option(sno,id));
+					}
+		    	}
+		    });
+	});
+		//提交表单
+		 function submitScoreForm(){
+			 //var school_id=$("#school_name").attr("value");
+			 var course_id=$("#course_name").val();
+			 var stu_id=$("#sno").val();
+			 var score=$("#score").val();
+			 //alert(course_id);
+			//有效性验证
+			if(!$('#ScoreAddForm').form('validate')){
+				$.messager.alert('提示','表单还未填写完成!');
+				return ;
+			}
+					
+			$.post("Score/addScore.do",{course_id:course_id,stu_id:stu_id,score:score}, function(data){
+				//alert("OK");
+				if(data.status == 200){
+					$.messager.alert('提示','添加成绩信息成功!');
+				}
+			});
+			
+			
+		}
+		 
+		//重置表单
+		function clearAdministratorForm(){
+			$('#ScoreAddForm').form('reset');
+			userAddEditor.html('');
+		}
+</script>
+
+</body>
+</html>

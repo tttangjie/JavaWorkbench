@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ymy.mapper.ScoreMapper">
+  <!-- 获取所有成绩信息 -->
+  <select id="getScoreList" resultType="com.ymy.pojo.vo.ScoreVo">
+   SELECT
+        score.id,
+		school.school_name,
+		score.course_id,
+		course.course_name,
+		student.sno,
+		student.stu_name,
+		score.score
+	FROM
+		course ,
+		school ,
+		score ,
+		student ,
+		teacher
+	WHERE
+		course.school_id = school.id AND
+		score.course_id = course.id AND
+		score.stu_id = student.id
+   
+  </select>
+  <update id="updateScore" parameterType="com.ymy.pojo.vo.ScoreVo">
+   update score set score=#{score} where id=#{id}
+  </update>
+  <!-- 删除多条成绩信息 -->
+  <delete id="deleteScores" parameterType="java.util.List"> 
+       <![CDATA[  
+       delete from  score where id in  
+       ]]>  
+      <foreach collection="list" item = "model" open="(" separator="," close=")">#{model}  
+    </foreach>
+  </delete>
+  <insert id="addScore" parameterType="com.ymy.pojo.Score">
+    insert into score (stu_id,course_id,score) values (#{stu_id},#{course_id},#{score})
+  </insert>
+</mapper>

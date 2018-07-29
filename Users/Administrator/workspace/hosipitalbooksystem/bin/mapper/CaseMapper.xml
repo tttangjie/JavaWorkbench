@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace的作用就是sql语句隔离，后面还有其他用途。 -->
+<mapper namespace="com.mybaties.mapper.CaseMapper">
+<select id="findCaseByPno" parameterType="String" resultType="com.po.MedicalCase">
+       select * from MedicalCase where pno=#{pno}
+</select>
+
+<insert id="insertCase" parameterType="com.po.MedicalCase">
+    insert into MedicalCase(pno, dno, mno, bno, cday) values(#{pno}, #{dno}, #{mno}, #{bno}, #{cday})
+</insert>
+<!-- 删除 -->
+<delete id="deleteCaseByPno" parameterType="String">
+        delete from MedicalCase where pno = #{pno}
+</delete>
+<!-- 修改-->
+<update id="updateCaseByPno" parameterType="com.po.MedicalCase">
+    update MedicalCase set dno=#{dno},mno=#{mno},bno=#{bno},cday=#{cday} where  pno=#{pno} 
+</update>
+</mapper>

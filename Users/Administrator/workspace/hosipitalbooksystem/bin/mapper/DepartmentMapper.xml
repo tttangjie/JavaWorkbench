@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace的作用就是sql语句隔离，后面还有其他用途。 -->
+<mapper namespace="com.mybaties.mapper.DepartmentMapper">
+<select id="findDepartmentByDepno" parameterType="String" resultType="com.po.Department">
+       select * from Department where depno=#{depno}
+</select>
+<select id="findDepartmentByDepname" parameterType="String" resultType="com.po.Department">
+       select * from Department where depname=#{depname}
+</select>
+
+<insert id="insertDepartment" parameterType="com.po.Department">
+    insert into Department (depno,depname) values(#{depno}, #{depname})
+</insert>
+<!-- 删除 -->
+<delete id="deleteDepartmentByDepno" parameterType="String">
+        delete from Department where depno = #{depno}
+</delete>
+<!-- 修改-->
+<update id="updateDepartmentByDepno" parameterType="com.po.Department">
+    update Department set depno=#{depno},depname=#{depname}  where depno=#{depno} 
+</update>
+</mapper>

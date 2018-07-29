@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>学生成绩管理管理系统</title>
+<link href="js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="js/jquery-easyui-1.4.1/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="js/jquery-easyui-1.4.1/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="css/taotao.css" />
+<link href="js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="js/jquery-easyui-1.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-easyui-1.4.1/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="js/jquery-easyui-1.4.1/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/kindeditor-4.1.10/lang/zh_CN.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/highcharts.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/toTreeGridJson.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/exporting.js"></script>
+</head>
+<body>
+	<div id="cc" class="easyui-layout" data-options="fit:true">
+		
+		<div data-options="region:'west',minWidth:100,maxWidth:310,iconCls:'icon-save',title:'管理菜单',split:true" style="width: 150px;">
+			<div id="aa"  class="easyui-accordion" style="width:200px; height: 300px;">
+			
+				<div title="学生成绩管理" data-options="iconCls:'icon-usermanager'" style="overflow: auto; padding: 20px;">
+				    <a id="btn" href="#" class="easyui-linkbutton" onclick="openPage(this)" data-options="iconCls:'icon-search'">成绩管理</a>
+					<br>
+					<a id="btn" href="#" class="easyui-linkbutton" onclick="openPage(this)" data-options="iconCls:'icon-search'">成绩添加</a>
+					<br>
+				</div>
+
+			</div>
+		</div>	
+		<div data-options="region:'center'" style=" background: #eee;">
+			<div id="tt" class="easyui-tabs" data-options="fit:true" style="width: 500px; height: 250px;">
+				<div title="首页" style="padding: 20px;">
+					
+				</div> 
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+   
+	
+function openPage(btn)
+{
+	var url="";
+	if($.trim(btn.text)=="成绩管理"){
+		url="html/score_list.html";
+	}
+	if($.trim(btn.text)=="成绩添加"){
+		url="html/score_add.html";
+	}
+
+	//判断对应的面板是否存在，如果存在，将选 中对应的面板
+	if($('#tt').tabs('exists',btn.text)){
+		$('#tt').tabs("select",btn.text);
+	}else{	
+		$('#tt').tabs("add",{
+			title:btn.text,
+			//content:btn.text+'信息界面',
+			//不会加载body外的内容
+			href:url,
+			closable:true,
+			selected:true			
+		});
+	}	
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>信息注册</title>
+</head>
+<body>
+  <input type="text" id="user" name="user" onblur="check()"/>
+  <div id="my"></div>
+<script type="text/javascript">
+  function check()
+  {
+	  var xmlhttp;
+	  if (window.XMLHttpRequest) 
+	  {// code for IE7+, Firefox, Chrome, Opera, Safari
+	     xmlhttp=new XMLHttpRequest(); 
+	  } 
+	else {// code for IE6, IE5 
+	   xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); 
+	} 
+	  
+	//  var name=document.getElementById("user").value;
+	 
+	  xmlhttp.open("get","getUsers",true);
+	  
+	  xmlhttp.onreadystatechange=function() 
+	  { if (xmlhttp.readyState==4 && xmlhttp.status==200) 
+	      { 
+		      var res=xmlhttp.responseText;
+		      var json=eval("("+res+")");
+	         document.getElementById("my").innerHTML=display(json);
+	      } 
+	  } 
+   
+	  xmlhttp.send();
+
+	  
+  }
+  
+  function display(json)
+  {
+	  var context="<table><tr><th>用户名</th><th>密码</th></tr>";
+	  for(var i=0;i<json.length;i++)
+		  context+="<tr><td>"+json[i].userName+"</td><td>"+json[i].pwd+"</td></tr>"
+      context+="</table>"
+      return context;
+  }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 和spring整合后 environments配置将废除 -->
+	<environments default="development">
+		<environment id="development">
+			<!-- 使用jdbc事务管理，事物控制由mybaties空值 -->
+			<transactionManager type="JDBC" />
+			<!-- 数据库连接池  mybaties-->
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="url"
+					value="jdbc:mysql://localhost:3306/hospital?characterEncoding=utf-8" />
+				<property name="username" value="root" />
+				<property name="password" value="tangjie" />
+			</dataSource>
+		</environment>
+	</environments>
+
+<!-- 加载Mapper映射文件 -->
+	<mappers>
+		<!-- resource从classpath下开始查找 -->
+		<mapper resource="mapper/UserMapper.xml"/>
+		<mapper resource="mapper/PrepayMapper.xml"/>
+		<mapper resource="mapper/PatientMapper.xml"/>
+		<mapper resource="mapper/MedicineMapper.xml"/>
+		<mapper resource="mapper/BedMapper.xml"/>
+		<mapper resource="mapper/DepartmentMapper.xml"/>
+		<mapper resource="mapper/DoctorMapper.xml"/>
+		<mapper resource="mapper/CaseMapper.xml"/>
+	</mappers>
+</configuration>

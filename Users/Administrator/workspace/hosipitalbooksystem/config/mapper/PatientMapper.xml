@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace的作用就是sql语句隔离，后面还有其他用途。 -->
+<mapper namespace="com.mybaties.mapper.PatientMapper">
+<select id="findPatientByPno" parameterType="String" resultType="com.po.Patient">
+       select * from Patient where pno=#{pno}
+</select>
+
+<insert id="insertPatient" parameterType="com.po.Patient">
+    insert into Patient (pno, pname, psex, page, pid, ptel) values(#{pno}, #{pname}, #{psex}, #{page}, #{pid}, #{ptel})
+</insert>
+<!-- 删除 -->
+<delete id="deletePatientByPno" parameterType="String">
+        delete from Patient where pno = #{pno}
+</delete>
+<!-- 修改-->
+<update id="updatePatientByPno" parameterType="com.po.Patient">
+    update patient set pno=#{pno}, pname=#{pname}, psex=#{psex}, page=#{page}, pid=#{pid}, ptel=#{ptel} where pno=#{pno} 
+</update>
+</mapper>
